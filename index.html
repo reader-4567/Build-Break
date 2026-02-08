@@ -1,186 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Build and Break Registration Form</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<title>Build and Break Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <style>
-* { box-sizing: border-box; font-family: Roboto, Arial, sans-serif; }
-body { background:#fde7e9; padding:12px; }
-
-.form-wrapper { max-width:640px; margin:auto; }
-
-h1{
-    text-align: center;
-    font-size: 20px;
+:root{
+  --blue-bg:#e8f0fe;
+  --card:#ffffff;
+  --primary:#1a73e8;
+  --danger:#d93025;
+  --border:#dadce0;
+  --text:#202124;
 }
 
-h2 {
-    text-align: center;
+*{box-sizing:border-box;font-family:Roboto}
+
+body{
+  margin:0;
+  background:var(--blue-bg);
+  padding:24px 12px;
+  color:var(--text);
 }
 
-.form-header {
-  background:#fff;
-  border-radius:8px;
-  border-top:10px solid #d93025;
+.container{
+  max-width:720px;
+  margin:auto;
+}
+
+.card{
+  background:var(--card);
+  border-radius:12px;
   padding:24px;
-  margin-bottom:12px;
+  margin-bottom:18px;
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
 }
 
-.card {
-  background:#fff;
-  border-radius:8px;
-  padding:20px 24px;
-  margin-bottom:12px;
+.title{
+  font-size:28px;
+  font-weight:700;
 }
 
-.label { font-size:16px; margin-bottom:8px; }
-.required { color:#d93025; }
-
-input[type="text"],
-input[type="email"],
-input[type="tel"] {
-  width:100%;
-  border:none;
-  border-bottom:1px solid #dadce0;
-  padding:6px 0;
-  font-size:16px;
+.subtitle{
+  font-size:14px;
+  color:#5f6368;
+  margin-top:4px;
 }
 
-input:focus {
-  outline:none;
-  border-bottom:2px solid #673ab7;
+.req-note{
+  color:var(--danger);
+  font-size:13px;
+  margin-top:10px;
 }
 
-.radio-group label {
+label{
   display:block;
-  margin:6px 0;
-  font-size:15px;
+  font-weight:500;
+  margin-bottom:6px;
 }
 
-button {
-  background:#673ab7;
-  color:#fff;
+.required::after{
+  content:" *";
+  color:var(--danger);
+}
+
+input[type=text],
+input[type=email],
+input[type=number]{
+  width:100%;
+  padding:12px;
+  border-radius:6px;
+  border:1px solid var(--border);
+}
+
+input:focus{
+  outline:none;
+  border-color:var(--primary);
+}
+
+.radio-group label{
+  display:flex;
+  gap:8px;
+  font-weight:400;
+  margin-bottom:6px;
+}
+
+.payment-box{
+  text-align:center;
+}
+
+.payment-box img{
+  max-width:260px;
+  border-radius:8px;
+  margin:12px auto;
+}
+
+.actions{
+  display:flex;
+  justify-content:space-between;
+  margin-top:12px;
+}
+
+button{
+  padding:10px 20px;
   border:none;
-  padding:10px 24px;
-  border-radius:4px;
+  border-radius:6px;
+  font-size:14px;
   cursor:pointer;
 }
 
-.success {
-  background:#fff;
-  border-radius:8px;
-  padding:30px;
-  text-align:center;
+.submit-btn{
+  background:var(--primary);
+  color:#fff;
 }
-.hidden { display:none; }
+
+.clear-btn{
+  background:none;
+  color:var(--primary);
+}
+
+.hidden{display:none}
+
+/* SUCCESS PAGE */
+.success-wrapper{
+  background:var(--blue-bg);
+  padding:24px;
+}
+
+.confirmation{
+  background:#fff;
+  border-radius:12px;
+  padding:48px 24px;
+  text-align:center;
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+
+.confirmation h2{
+  font-size:24px;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+
+.confirmation p{
+  color:#5f6368;
+  font-size:15px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="form-wrapper">
+<!-- FORM -->
+<div class="container" id="formContainer">
+<form id="registrationForm">
 
-  <div class="form-header">
-    <h1>SRI INDU COLLEGE OF ENGINEERING & TECHNOLOGY</h1>
-    <h2>Build and Break Registration Form</h2>
-    <p style="color:#d93025;">* Indicates required question</p>
+<div class="card">
+  <div class="title">Build and Break</div>
+  <div class="subtitle">Register here for the Build and Break technical event</div>
+  <div class="req-note">* Indicates required question</div>
+</div>
+
+<div class="card">
+  <label class="required">Participant Name</label>
+  <input type="text" name="participant_name" required>
+</div>
+
+<div class="card">
+  <label class="required">Roll Number</label>
+  <input type="text" name="roll_number" required>
+</div>
+
+<div class="card">
+  <label class="required">Department (Mention Section)</label>
+  <input type="text" name="department" required>
+</div>
+
+<div class="card">
+  <label class="required">Year</label>
+  <div class="radio-group">
+    <label><input type="radio" name="year" value="1st year" required>1st year</label>
+    <label><input type="radio" name="year" value="2nd year">2nd year</label>
+    <label><input type="radio" name="year" value="3rd year">3rd year</label>
+    <label><input type="radio" name="year" value="4th year">4th year</label>
   </div>
+</div>
 
-  <form id="regForm">
+<div class="card">
+  <label class="required">Phone Number</label>
+  <input type="number" name="phone" required>
+</div>
 
-    <!-- TEAM MEMBER 1 -->
-    <div class="card">
-      <div class="label">Team Member 1 – Full Name <span class="required">*</span></div>
-      <input type="text" name="member1" required>
-    </div>
+<div class="card">
+  <label class="required">Email ID</label>
+  <input type="email" name="email" required>
+</div>
 
-    <!-- TEAM MEMBER 2 -->
-    <div class="card">
-      <div class="label">Team Member 2 – Full Name</div>
-      <input type="text" name="member2">
-    </div>
+<div class="card">
+  <label class="required">Participation Type</label>
+  <div class="radio-group">
+    <label><input type="radio" name="participation" value="Solo" required>Solo</label>
+    <label><input type="radio" name="participation" value="Team">Team (2 Members)</label>
+  </div>
+</div>
 
-    <!-- EMAIL -->
-    <div class="card">
-      <div class="label">Email (Any One) <span class="required">*</span></div>
-      <input type="email" name="email" id="email" required>
-    </div>
+<div class="card hidden" id="teamMemberCard">
+  <label>Team Member Name</label>
+  <input type="text" name="team_member">
+</div>
 
-    <!-- MOBILE -->
-    <div class="card">
-      <div class="label">Phone Number (Any One) <span class="required">*</span></div>
-      <input type="tel" name="mobile" pattern="[0-9]{10}" required>
-    </div>
+<div class="card payment-box">
+  <h3>Registration Fee: ₹30</h3>
+  <img src="1.jpeg">
+  <p><strong>UPI ID:</strong> ghorudevaishnavi@oksbi</p>
+</div>
 
-    <!-- YEAR -->
-    <div class="card">
-      <div class="label">Year <span class="required">*</span></div>
-      <div class="radio-group">
-        <label><input type="radio" name="year" value="I" required> I</label>
-        <label><input type="radio" name="year" value="II"> II</label>
-        <label><input type="radio" name="year" value="III"> III</label>
-      </div>
-    </div>
+<div class="card">
+  <label class="required">Upload the payment screenshot (Max 10MB)</label>
+  <input type="file" name="payment_image" accept="image/*" required>
+</div>
 
-    <!-- BRANCH -->
-    <div class="card">
-      <div class="label">Branch <span class="required">*</span></div>
-      <div class="radio-group">
-        <label><input type="radio" name="branch" value="CSE" required> CSE</label>
-        <label><input type="radio" name="branch" value="ECE"> ECE</label>
-        <label><input type="radio" name="branch" value="EEE"> EEE</label>
-        <label><input type="radio" name="branch" value="AIML"> AIML</label>
-        <label><input type="radio" name="branch" value="AIDS"> AIDS</label>
-        <label><input type="radio" name="branch" value="CSIT"> CSIT</label>
-        <label><input type="radio" name="branch" value="DS"> DS</label>
-        <label><input type="radio" name="branch" value="CS"> Cyber Security</label>
-        <label><input type="radio" name="branch" value="MECH"> Mechanical</label>
-        <label><input type="radio" name="branch" value="CIVIL"> Civil</label>
-      </div>
-    </div>
+<div class="actions">
+  <button type="reset" class="clear-btn">Clear form</button>
+  <button type="submit" class="submit-btn">Submit</button>
+</div>
 
-    <!-- SECTION -->
-    <div class="card">
-      <div class="label">Section <span class="required">*</span></div>
-      <input type="text" name="section" required>
-    </div>
+</form>
+</div>
 
-    <button type="submit">Submit</button>
-  </form>
-
-  <!-- SUCCESS PAGE -->
-  <div id="successPage" class="success hidden">
+<!-- SUCCESS PAGE -->
+<div class="container hidden success-wrapper" id="confirmationContainer">
+  <div class="confirmation">
     <h2>Response recorded</h2>
-    <p>Your response has been recorded.</p>
+    <p>Your response has been recorded</p>
   </div>
-
 </div>
 
 <script>
-emailjs.init("NGWhYaiKh0jH8iLfM"); // 🔴 REPLACE
+emailjs.init("NGWhYaiKh0jH8iLfM");
 
-/* LOCK EMAIL */
-document.getElementById("email").addEventListener("change", function () {
-  this.readOnly = true;
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+document.querySelectorAll('input[name="participation"]').forEach(radio=>{
+  radio.addEventListener("change",()=>{
+    document.getElementById("teamMemberCard")
+      .classList.toggle("hidden", radio.value!=="Team" || !radio.checked);
+  });
 });
 
-/* SUBMIT */
-document.getElementById("regForm").addEventListener("submit", function(e) {
+document.getElementById("registrationForm").addEventListener("submit",function(e){
   e.preventDefault();
 
-  const data = Object.fromEntries(new FormData(this).entries());
+  const fileInput = document.querySelector('input[name="payment_image"]');
+  const file = fileInput.files[0];
 
-  emailjs.send(
-    "service_rso3lka",   // 🔴 REPLACE
-    "template_t05dsmh",  // 🔴 REPLACE
-    data
-  ).then(() => {
-    this.style.display = "none";
-    document.getElementById("successPage").classList.remove("hidden");
+  if(!file || !file.type.startsWith("image/") || file.size > MAX_FILE_SIZE){
+    alert("Upload a valid image under 10MB.");
+    return;
+  }
+
+  // prevent EmailJS from sending file
+  fileInput.disabled = true;
+
+  emailjs.sendForm(
+    "service_rso3lka",
+    "template_t05dsmh",
+    this
+  ).then(()=>{
+    document.getElementById("formContainer").classList.add("hidden");
+    document.getElementById("confirmationContainer").classList.remove("hidden");
+  }).catch(()=>{
+    alert("Failed to submit form.");
+    fileInput.disabled = false;
   });
 });
 </script>
